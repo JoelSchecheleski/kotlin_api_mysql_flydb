@@ -1,20 +1,15 @@
 package com.mercadolivro.exception
 
 import com.mercadolivro.controller.response.exceptionResponse.ErrorResponse
-import org.hibernate.exception.ConstraintViolationException
-import org.springframework.dao.EmptyResultDataAccessException
+import com.mercadolivro.controller.response.exceptionResponse.FieldErrorResponse
+import com.mercadolivro.enums.Errors
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
-import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.context.request.WebRequest
-import java.io.PrintWriter
-import java.io.StringWriter
-import javax.persistence.EntityNotFoundException
-import javax.persistence.NoResultException
+
 
 @ControllerAdvice
 class ControllerAdvice {
@@ -41,6 +36,34 @@ class ControllerAdvice {
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleMethodArgumentNotValidException(ex: MethodArgumentNotValidException, request: WebRequest):
+            ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            HttpStatus.UNPROCESSABLE_ENTITY.value(),
+            Errors.ML001.message,
+            Errors.ML001.code,
+            ex.bindingResult.fieldErrors.map {
+                FieldErrorResponse(it.defaultMessage ?: "invalid", it.field)
+            }
+        )
+        return ResponseEntity(error, HttpStatus.UNPROCESSABLE_ENTITY)
+    }
+
+//    @ExceptionHandler(ConstraintViolationException::class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ResponseBody
+//    fun onConstraintValidationException(
+//        e: ConstraintViolationException
+//    ): ValidationErrorResponse? {
+//        val error = ValidationErrorResponse()
+//        for (violation in e.getConstraintViolations()) {
+//            error.getViolations().add(
+//                Violation(violation.getPropertyPath().toString(), violation.getMessage())
+//            )
+//        }
+//        return error
+//    }
 
 //    @ExceptionHandler(
 //        ConstraintViolationException::class,
