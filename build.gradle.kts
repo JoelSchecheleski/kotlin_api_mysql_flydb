@@ -17,21 +17,28 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-validation:2.5.6")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-data-rest")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.springframework.boot:spring-boot-starter-data-jdbc:2.5.5")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.6")
+	implementation("org.springframework.boot:spring-boot-starter-data-rest:2.5.5")
+	implementation("org.springframework.boot:spring-boot-starter-web:2.5.6")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.flywaydb:flyway-core:8.0.3")
 
-	runtimeOnly("com.h2database:h2")
-	runtimeOnly("mysql:mysql-connector-java")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("io.springfox:springfox-swagger2:3.0.0")
+	implementation("io.springfox:springfox-swagger-ui:3.0.0")
+	implementation("io.springfox:springfox-boot-starter:3.0.0")
+
+	implementation("org.apache.logging.log4j:log4j-core:2.14.1")
+	implementation("org.apache.logging.log4j:log4j-api:2.14.1")
+
+	runtimeOnly("com.h2database:h2:1.4.200")
+	runtimeOnly("mysql:mysql-connector-java:8.0.25")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6")
 
 
 }
