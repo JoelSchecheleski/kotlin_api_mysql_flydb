@@ -17,7 +17,7 @@ data class PurchaseModel(
 
     @ManyToMany
     @JoinTable(
-        name = "purchase_book",
+        name = "purchases_books",
         joinColumns = [JoinColumn(name = "purchase_id")],
         inverseJoinColumns = [JoinColumn(name = "book_id")]
     )
