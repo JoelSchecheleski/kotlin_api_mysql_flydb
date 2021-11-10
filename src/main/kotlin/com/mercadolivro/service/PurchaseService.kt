@@ -19,4 +19,9 @@ class PurchaseService(
         applicationEventPublisher.publishEvent(PurchaseEvent(this, purchaseModel))
     }
 
+    // Evento que é usado para salvar as alterações em GenerateNfeListener
+    fun update(purchaseModel: PurchaseModel) {
+        purchaseRepository.save(purchaseModel)
+    }
+
 }
