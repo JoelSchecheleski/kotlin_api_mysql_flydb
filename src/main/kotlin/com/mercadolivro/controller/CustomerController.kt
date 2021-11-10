@@ -16,15 +16,15 @@ class CustomerController(
     val customerService: CustomerService
 ) {
 
-    @GetMapping
-    fun getAll(@RequestParam name: String?, @RequestParam email: String?): List<CustomerResponse> {
-        return customerService.getAll(name, email).map { it.toResponse() }
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody @Valid customer: PostCustomerRequest) {
         customerService.create(customer.toCustomerModel())
+    }
+
+    @GetMapping
+    fun getAll(@RequestParam name: String?, @RequestParam email: String?): List<CustomerResponse> {
+        return customerService.getAll(name, email).map { it.toResponse() }
     }
 
     @GetMapping("/{id}")

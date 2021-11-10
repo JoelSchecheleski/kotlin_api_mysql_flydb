@@ -11,3 +11,6 @@ class MercadoLivroApplication
 fun main(args: Array<String>) {
 	runApplication<MercadoLivroApplication>(*args)
 }
+
+// TODO: Criar validação para não permitir vender livros cancelados, vendidos e deletados
+// TODO: Criar entpoint para trazer as vendas por usuario
