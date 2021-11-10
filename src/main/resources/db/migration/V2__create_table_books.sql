@@ -8,11 +8,11 @@ create table if not exists books (
 );
 
 INSERT INTO `books` (`id`,`name`,`price`,`status`,`customer_id`)
-VALUES  (1,'Nascer do sol',13.00,'DELETADO',1),
-        (2,'Nascer da lua',18.00,'DELETADO',1),
-        (3,'Os ultimos serão os primeiros',21.00,'DELETADO',1),
-        (4,'O segundo é o primeiro dos perdedores',44.56,'DELETADO',1),
-        (5,'O segundo é o primeiro dos perdedores',44.56,'DELETADO',1),
+VALUES  (1,'Nascer do sol',13.00,'ATIVO',1),
+        (2,'Nascer da lua',18.00,'ATIVO',1),
+        (3,'Os ultimos serão os primeiros',21.00,'ATIVO',1),
+        (4,'O segundo é o primeiro dos perdedores',44.56,'ATIVO',1),
+        (5,'O segundo é o primeiro dos perdedores',44.56,'ATIVO',1),
         (6,'Nem sempre foi assim',120.50,'ATIVO',1),
         (7,'Todas as coisas',160.55,'ATIVO',1),
         (8,'Aprendendo a aprender',118.20,'ATIVO',1),
