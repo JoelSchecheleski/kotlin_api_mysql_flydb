@@ -44,10 +44,9 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6")
 
 	// Spring Security
-//	implementation("org.springframework.boot:spring-boot-starter-security")
-//	testImplementation("org.springframework.boot:spring-boot-starter-test")
-//	testImplementation("org.springframework.security:spring-security-test")
-
+	implementation("org.springframework.boot:spring-boot-starter-security:2.5.6")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6")
+	testImplementation("org.springframework.security:spring-security-test:5.5.1")
 }
 
 tasks.withType<KotlinCompile> {
