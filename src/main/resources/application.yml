@@ -10,6 +10,10 @@ spring:
   jackson:
     default-property-inclusion: non_null
 
+jwt:
+  secret: 2dee69c2-1b5a-4cd5-bf3b-9ae1f76ff5c7
+  expiration: 999999
+
 flyway:
   url: jdbc:mysql://localhost:3306/mercadolivro
   schemas: mercadolivro
@@ -17,3 +21,4 @@ flyway:
   validate-on-migrate: true
   baseline-on-migrate: true
   baseline-version: 0
+
