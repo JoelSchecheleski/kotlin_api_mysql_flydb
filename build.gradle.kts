@@ -27,6 +27,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+	// Migration
 	implementation("org.flywaydb:flyway-core:8.0.3")
 
 	// Swagger
@@ -50,6 +52,9 @@ dependencies {
 
 	// JWT
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
+
+	// Mocking library for Kotlin
+	testImplementation("io.mockk:mockk:1.12.0")
 
 }
 
