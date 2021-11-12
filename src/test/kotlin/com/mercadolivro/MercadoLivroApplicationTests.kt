@@ -8,6 +8,7 @@ class MercadoLivroApplicationTests {
 
 	@Test
 	fun contextLoads() {
+
 	}
 
 }
