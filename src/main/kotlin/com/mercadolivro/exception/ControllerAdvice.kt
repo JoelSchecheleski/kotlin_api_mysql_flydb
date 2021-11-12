@@ -66,44 +66,44 @@ class ControllerAdvice {
         return ResponseEntity(error, HttpStatus.FORBIDDEN)
     }
 
-    @ExceptionHandler(AuthorizationServiceException::class)
-    fun handleUnauthorizedException(e: AuthorizationServiceException): ResponseEntity<ErrorResponse> {
-        val error = ErrorResponse(
-            HttpStatus.UNAUTHORIZED.value(),
-            Errors.ML002.message,
-            Errors.ML002.code,
-            null
-        )
-        return ResponseEntity(error, HttpStatus.UNAUTHORIZED)
-    }
+//    @ExceptionHandler(AuthorizationServiceException::class)
+//    fun handleUnauthorizedException(e: AuthorizationServiceException): ResponseEntity<ErrorResponse> {
+//        val error = ErrorResponse(
+//            HttpStatus.UNAUTHORIZED.value(),
+//            Errors.ML002.message,
+//            Errors.ML002.code,
+//            null
+//        )
+//        return ResponseEntity(error, HttpStatus.UNAUTHORIZED)
+//    }
 
-    @ExceptionHandler(AuthenticationException::class)
-    fun handleAuthenticationException(e: AuthenticationException): ResponseEntity<ErrorResponse> {
-        val error = ErrorResponse(
-            HttpStatus.UNAUTHORIZED.value(),
-            Errors.ML003.message,
-            Errors.ML003.code,
-            null
-        )
-        return ResponseEntity(error, HttpStatus.UNAUTHORIZED)
-    }
+//    @ExceptionHandler(AuthenticationException::class)
+//    fun handleAuthenticationException(e: AuthenticationException): ResponseEntity<ErrorResponse> {
+//        val error = ErrorResponse(
+//            HttpStatus.UNAUTHORIZED.value(),
+//            Errors.ML003.message,
+//            Errors.ML003.code,
+//            null
+//        )
+//        return ResponseEntity(error, HttpStatus.UNAUTHORIZED)
+//    }
 
 
-    @ExceptionHandler(ConstraintViolationException::class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    fun onConstraintValidationException(e: ConstraintViolationException): ResponseEntity<ErrorResponse> {
-        val error = ErrorResponse(
-            HttpStatus.UNAUTHORIZED.value(),
-            Errors.ML003.message,
-            Errors.ML003.code,
-            null
-        )
-        for (violation in e.getConstraintName()) {
-            error.errors!!.map { violation }
-        }
-        return ResponseEntity(error, HttpStatus.UNAUTHORIZED)
-    }
+//    @ExceptionHandler(ConstraintViolationException::class)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ResponseBody
+//    fun onConstraintValidationException(e: ConstraintViolationException): ResponseEntity<ErrorResponse> {
+//        val error = ErrorResponse(
+//            HttpStatus.UNAUTHORIZED.value(),
+//            Errors.ML003.message,
+//            Errors.ML003.code,
+//            null
+//        )
+//        for (violation in e.getConstraintName()) {
+//            error.errors!!.map { violation }
+//        }
+//        return ResponseEntity(error, HttpStatus.UNAUTHORIZED)
+//    }
 
 //    @ExceptionHandler(
 //        ConstraintViolationException::class,
