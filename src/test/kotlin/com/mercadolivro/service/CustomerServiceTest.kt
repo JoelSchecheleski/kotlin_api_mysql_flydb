@@ -43,6 +43,23 @@ class CustomerServiceTest {
         verify(exactly = 0) { customerRepository.findByNameContaining(any()) }
     }
 
+    @Test
+    fun `should return all customers when name is informat`() {
+        val name = "TS-${Math.random().toString()}"
+        val email = "${UUID.randomUUID()}@email.com"
+
+        val fakeCustomer =  listOf(buildCustomer(),buildCustomer())
+        every { customerRepository.findByNameContaining(name) } returns fakeCustomer
+        every { customerRepository.findByEmailContaining(email) } returns fakeCustomer
+
+        val customers  = customerService.getAll(name,email)
+
+        assertEquals(fakeCustomer, customers)
+        verify(exactly = 0) { customerRepository.findAll() }
+        verify(exactly = 1) { customerRepository.findByNameContaining(name) }
+        verify(exactly = 0) { customerRepository.findByEmailContaining(email) }
+    }
+
     // generate fake customer
     fun buildCustomer(
         id: Int? = null,
