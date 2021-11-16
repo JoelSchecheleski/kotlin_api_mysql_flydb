@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.5.31"
 	kotlin("plugin.spring") version "1.5.31"
 	kotlin("plugin.jpa") version "1.5.31" // ajustar problemas de construtores padrão
+	jacoco
 }
 
 group = "com.mercadolivro"
@@ -55,6 +56,10 @@ dependencies {
 
 	// Mocking library for Kotlin
 	testImplementation("io.mockk:mockk:1.12.0")
+
+	// Jacoco report
+//	implementation("org.jacoco:jacoco-maven-plugin:0.8.7")
+
 
 }
 
