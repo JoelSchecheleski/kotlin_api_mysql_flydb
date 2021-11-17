@@ -1,13 +1,9 @@
 spring:
-  profiles:
-    active: test
   datasource:
     url: jdbc:mysql://localhost:3306/mercadolivrotest?createDatabaseIfNotExist=true
     username: root
     password: root
-
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: update
   jackson:
@@ -16,12 +12,3 @@ spring:
 jwt:
   secret: 2dee69c2-1b5a-4cd5-bf3b-9ae1f76ff5c7
   expiration: 999999
-
-flyway:
-  url: jdbc:mysql://localhost:3306/mercadolivro
-  schemas: mercadolivro
-  enable: true
-  validate-on-migrate: true
-  baseline-on-migrate: true
-  baseline-version: 0
-
