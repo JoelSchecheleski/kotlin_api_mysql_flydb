@@ -8,9 +8,6 @@ data class PutCustomerRequest (
     @field:NotEmpty(message = "Nome deve ser informado")
     var name: String,
 
-    @field:Email(message = "Email deve ser váilido")
-    var email: String,
-
-//    @field:NotEmpty(message = "A senha deve ser informada")
-//    val password: String
+    @field:Email(message = "E-mail deve ser válido")
+    var email: String
 )

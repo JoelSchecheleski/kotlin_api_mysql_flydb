@@ -1,6 +1,5 @@
 package com.mercadolivro.validation
 
-import org.springframework.web.bind.MethodArgumentNotValidException
 import javax.validation.Constraint
 import javax.validation.Payload
 import kotlin.reflect.KClass

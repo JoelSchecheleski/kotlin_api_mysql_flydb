@@ -6,11 +6,11 @@ import com.mercadolivro.exception.BadRequestException
 import java.math.BigDecimal
 import javax.persistence.*
 
-@Entity(name="books")
+@Entity(name = "book")
 data class BookModel(
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null,
 
     @Column
@@ -20,27 +20,27 @@ data class BookModel(
     var price: BigDecimal,
 
     @ManyToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name = "customer_id")
     var customer: CustomerModel? = null
+
 ) {
 
     @Column
     @Enumerated(EnumType.STRING)
     var status: BookStatus? = null
         set(value) {
-            if(field == BookStatus.CANCELADO || field == BookStatus.DELETADO) {
-                throw BadRequestException(Errors.ML202.message.format(field), Errors.ML202.code)
-            }
+            if(field == BookStatus.CANCELADO || field == BookStatus.DELETADO)
+                throw BadRequestException(Errors.ML102.message.format(field), Errors.ML102.code)
+
             field = value
         }
 
-    // construtor
     constructor(id: Int? = null,
                 name: String,
                 price: BigDecimal,
                 customer: CustomerModel? = null,
-                status: BookStatus?): this(id, name, price, customer) { // this = invoca o construtor padrão
-                    this.status = status
-                }
+                status: BookStatus?): this(id, name, price, customer) {
+        this.status = status
+    }
 
 }

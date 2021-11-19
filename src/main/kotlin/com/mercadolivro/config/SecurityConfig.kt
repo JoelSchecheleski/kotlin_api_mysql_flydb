@@ -34,12 +34,12 @@ class SecurityConfig(
 
     private val PUBLIC_MATCHERS = arrayOf<String>()
 
-    private val PUBLIC_GET_MATCHERS = arrayOf(
-        "/books"
-    )
-
     private val PUBLIC_POST_MATCHERS = arrayOf(
         "/customers"
+    )
+
+    private val PUBLIC_GET_MATCHERS = arrayOf(
+        "/books"
     )
 
     private val ADMIN_MATCHERS = arrayOf(
@@ -57,17 +57,6 @@ class SecurityConfig(
             .antMatchers(HttpMethod.POST, *PUBLIC_POST_MATCHERS).permitAll()
             .antMatchers(HttpMethod.GET, *PUBLIC_GET_MATCHERS).permitAll()
             .antMatchers(*ADMIN_MATCHERS).hasAuthority(Role.ADMIN.description)
-
-            .antMatchers(
-                "/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/configuration/**",
-                "/swagger-ui.html",
-                "/swagger-ui",
-                "/webjars/**").permitAll()
-
             .anyRequest().authenticated()
         http.addFilter(AuthenticationFilter(authenticationManager(), customerRepository, jwtUtil))
         http.addFilter(AuthorizationFilter(authenticationManager(), userDetails, jwtUtil))
@@ -76,14 +65,8 @@ class SecurityConfig(
     }
 
     override fun configure(web: WebSecurity) {
-        web.ignoring().antMatchers(
-            "/v2/api-docs",
-            "/configuration/ui",
-            "/swagger-resources/**",
-            "/configuration/**",
-            "/swagger-ui.html",
-            "/webjars/**",
-        )
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**",
+            "/swagger-ui.html", "/webjars/**")
     }
 
     @Bean
@@ -102,4 +85,5 @@ class SecurityConfig(
     fun bCryptPasswordEncoder(): BCryptPasswordEncoder {
         return BCryptPasswordEncoder()
     }
+
 }

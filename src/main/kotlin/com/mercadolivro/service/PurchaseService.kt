@@ -12,14 +12,14 @@ class PurchaseService(
     private val applicationEventPublisher: ApplicationEventPublisher
 ) {
 
-    fun create(purchaseModel: PurchaseModel) {
+    fun create(purchaseModel: PurchaseModel){
         purchaseRepository.save(purchaseModel)
 
-        // Dispara um evento que foi realizado uma compra
+        println("Disparando evento de compra")
         applicationEventPublisher.publishEvent(PurchaseEvent(this, purchaseModel))
+        println("Finalização do processamento!")
     }
 
-    // Evento que é usado para salvar as alterações em GenerateNfeListener
     fun update(purchaseModel: PurchaseModel) {
         purchaseRepository.save(purchaseModel)
     }

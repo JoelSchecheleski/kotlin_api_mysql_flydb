@@ -8,7 +8,6 @@ import com.mercadolivro.model.CustomerModel
 import com.mercadolivro.repository.CustomerRepository
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import java.lang.Exception
 
 @Service
 class CustomerService(
@@ -17,12 +16,9 @@ class CustomerService(
     private val bCrypt: BCryptPasswordEncoder
 ) {
 
-    fun getAll(name: String?, email: String?): List<CustomerModel> {
+    fun getAll(name: String?): List<CustomerModel> {
         name?.let {
             return customerRepository.findByNameContaining(it)
-        }
-        email?.let {
-            return customerRepository.findByEmailContaining(it)
         }
         return customerRepository.findAll().toList()
     }
@@ -36,23 +32,24 @@ class CustomerService(
     }
 
     fun findById(id: Int): CustomerModel {
-        return customerRepository.findById(id).orElseThrow {
-            NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code)
-        }
+        return customerRepository.findById(id).orElseThrow{ NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code) }
     }
 
     fun update(customer: CustomerModel) {
         if(!customerRepository.existsById(customer.id!!)){
             throw NotFoundException(Errors.ML201.message.format(customer.id), Errors.ML201.code)
         }
+
         customerRepository.save(customer)
     }
 
     fun delete(id: Int) {
         val customer = findById(id)
         bookService.deleteByCustomer(customer)
+
         customer.status = CustomerStatus.INATIVO
-        update(customer)
+
+        customerRepository.save(customer)
     }
 
     fun emailAvailable(email: String): Boolean {
