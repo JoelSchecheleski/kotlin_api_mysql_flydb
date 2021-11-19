@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import java.util.*
 
 @ExtendWith(MockKExtension::class)
-class GenerateNfeListenerTest(){
+class GenerateNfeListenerTest {
 
     @MockK
     private lateinit var purchaseService: PurchaseService
@@ -21,21 +21,19 @@ class GenerateNfeListenerTest(){
     @InjectMockKs
     private lateinit var generateNfeListener: GenerateNfeListener
 
-
     @Test
-    fun `should generate nfe`(){
-        val purchage = buildPurchase(nfe = null)
-
+    fun `should generate nfe`() {
+        val purchase = buildPurchase(nfe = null)
         val fakeNfe = UUID.randomUUID()
-        val puarchageExpected = purchage.copy(nfe = fakeNfe.toString())
+        val purchaseExpected = purchase.copy(nfe = fakeNfe.toString())
         mockkStatic(UUID::class)
 
         every { UUID.randomUUID() } returns fakeNfe
-        every {purchaseService.update(puarchageExpected)} just runs
+        every { purchaseService.update(purchaseExpected) } just runs
 
-        generateNfeListener.listen(PurchaseEvent(this, purchage))
+        generateNfeListener.listen(PurchaseEvent(this, purchase))
 
-        verify(exactly = 1) { purchaseService.update(puarchageExpected) }
+        verify(exactly = 1) { purchaseService.update(purchaseExpected) }
     }
 
 }

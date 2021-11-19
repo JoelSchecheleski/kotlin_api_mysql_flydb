@@ -4,7 +4,7 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 import javax.persistence.*
 
-@Entity(name = "purchases")
+@Entity(name = "purchase")
 data class PurchaseModel(
 
     @Id
@@ -16,11 +16,9 @@ data class PurchaseModel(
     val customer: CustomerModel,
 
     @ManyToMany
-    @JoinTable(
-        name = "purchases_books",
+    @JoinTable(name = "purchase_book",
         joinColumns = [JoinColumn(name = "purchase_id")],
-        inverseJoinColumns = [JoinColumn(name = "book_id")]
-    )
+        inverseJoinColumns = [JoinColumn(name = "book_id")])
     val books: MutableList<BookModel>,
 
     @Column
@@ -31,5 +29,4 @@ data class PurchaseModel(
 
     @Column(name = "created_at")
     val createdAt: LocalDateTime = LocalDateTime.now()
-
 )

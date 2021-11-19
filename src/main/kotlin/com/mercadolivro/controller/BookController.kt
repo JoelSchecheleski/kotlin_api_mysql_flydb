@@ -19,8 +19,8 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("books")
 class BookController(
-    private val customerService: CustomerService,
-    private val bookService: BookService
+    private val bookService: BookService,
+    private val customerService: CustomerService
 ) {
 
     @PostMapping
@@ -31,24 +31,24 @@ class BookController(
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
     fun findAll(@PageableDefault(page = 0, size = 10) pageable: Pageable): PageResponse<BookResponse> {
         return bookService.findAll(pageable).map { it.toResponse() }.toPageResponse()
     }
 
-    @GetMapping("/actives")
-    @ResponseStatus(HttpStatus.OK)
-    fun findActives(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse> {
-        return bookService.findAtives(pageable).map { it.toResponse() }
-    }
+    @GetMapping("/active")
+    fun findActives(@PageableDefault(page = 0, size = 10) pageable: Pageable): Page<BookResponse> =
+        bookService.findActives(pageable).map { it.toResponse() }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    fun findById(@PathVariable id: Int): BookResponse = bookService.findById(id).toResponse()
+    fun findById(@PathVariable id: Int): BookResponse {
+        return bookService.findById(id).toResponse()
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable id: Int) = bookService.delete(id)
+    fun delete(@PathVariable id: Int) {
+        bookService.delete(id)
+    }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -57,5 +57,9 @@ class BookController(
         bookService.update(book.toBookModel(bookSaved))
     }
 
+
+    fun soma(a: Int, b: Int): Int {
+        return a + b
+    }
 
 }

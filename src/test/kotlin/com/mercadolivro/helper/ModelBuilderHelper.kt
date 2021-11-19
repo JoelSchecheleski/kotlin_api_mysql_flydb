@@ -12,7 +12,7 @@ fun buildCustomer(
     id: Int? = null,
     name: String = "customer name",
     email: String = "${UUID.randomUUID()}@email.com",
-    password: String = "password"
+    password: String = "${UUID.randomUUID()}" // trocar pora uma senha única
 ) = CustomerModel(
     id = id,
     name = name,
@@ -21,6 +21,7 @@ fun buildCustomer(
     password = password,
     roles = setOf(Role.CUSTOMER)
 )
+
 
 fun buildPurchase(
     id: Int? = null,

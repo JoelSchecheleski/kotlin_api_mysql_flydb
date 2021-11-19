@@ -2,21 +2,11 @@ spring:
   profiles:
     active: dev
   jpa:
-    show-sql: true
     hibernate:
       ddl-auto: update
   jackson:
-    default-property-inclusion: non_null
+    default-property-inclusion: non_ null
 
 jwt:
-  secret: 2dee69c2-1b5a-4cd5-bf3b-9ae1f76ff5c7
+  secret: 2c57cf3a-c804-4dc5-8cd4-93b8d8581948
   expiration: 999999
-
-flyway:
-  url: jdbc:mysql://localhost:3306/mercadolivro
-  schemas: mercadolivro
-  enable: true
-  validate-on-migrate: true
-  baseline-on-migrate: true
-  baseline-version: 0
-

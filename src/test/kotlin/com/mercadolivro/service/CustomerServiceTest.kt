@@ -43,30 +43,25 @@ class CustomerServiceTest {
 
         every { customerRepository.findAll() } returns fakeCustomers
 
-        val customers = customerService.getAll(null, null)
+        val customers = customerService.getAll(null)
 
         assertEquals(fakeCustomers, customers)
         verify(exactly = 1) { customerRepository.findAll() }
         verify(exactly = 0) { customerRepository.findByNameContaining(any()) }
     }
+
     @Test
-    fun `should return all customers when name is informat`() {
-        val name = "TS-${Math.random().toString()}"
-        val email = "${UUID.randomUUID()}@email.com"
+    fun `should return customers when name is informed`() {
+        val name = UUID.randomUUID().toString()
+        val fakeCustomers = listOf(buildCustomer(), buildCustomer())
 
-        val fakeCustomer = listOf(buildCustomer(), buildCustomer())
-        every { customerRepository.findByNameContaining(name) } returns fakeCustomer
-        every { customerRepository.findByEmailContaining(email) } returns fakeCustomer
+        every { customerRepository.findByNameContaining(name) } returns fakeCustomers
 
-        val customersName = customerService.getAll(name, null) // testa nome
-        val customersEmail = customerService.getAll(null, email) // testa email
+        val customers = customerService.getAll(name)
 
-        assertEquals(fakeCustomer, customersName)
-        assertEquals(fakeCustomer, customersEmail)
-
+        assertEquals(fakeCustomers, customers)
         verify(exactly = 0) { customerRepository.findAll() }
         verify(exactly = 1) { customerRepository.findByNameContaining(name) }
-        verify(exactly = 1) { customerRepository.findByEmailContaining(email) }
     }
 
     @Test
@@ -160,7 +155,7 @@ class CustomerServiceTest {
 
         verify(exactly = 1) { customerService.findById(id) }
         verify(exactly = 1) { bookService.deleteByCustomer(fakeCustomer) }
-//        verify(exactly = 1) { customerRepository.save(expectedCustomer) }
+        verify(exactly = 1) { customerRepository.save(expectedCustomer) }
     }
 
 
@@ -184,7 +179,7 @@ class CustomerServiceTest {
 
     @Test
     fun `should return true when email available`() {
-        val email = "${Random().nextInt()}@email.com"
+        val email = "${Random().nextInt().toString()}@email.com"
 
         every { customerRepository.existsByEmail(email) } returns false
 
@@ -192,6 +187,7 @@ class CustomerServiceTest {
 
         assertTrue(emailAvailable)
         verify(exactly = 1) { customerRepository.existsByEmail(email) }
+
     }
 
     @Test

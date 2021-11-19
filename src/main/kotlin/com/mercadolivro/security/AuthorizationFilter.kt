@@ -12,28 +12,26 @@ import javax.servlet.http.HttpServletResponse
 
 class AuthorizationFilter(
     authenticationManager: AuthenticationManager,
-    private val userDetailCustomService: UserDetailsCustomService,
-    private val jwtUtil: JwtUtil,
-): BasicAuthenticationFilter(authenticationManager) {
+    private val userDetails: UserDetailsCustomService,
+    private val jwtUtil: JwtUtil
+) : BasicAuthenticationFilter(authenticationManager) {
 
-    override fun doFilterInternal(request: HttpServletRequest,
-                                  response: HttpServletResponse, chain: FilterChain) {
+    override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
         val authorization = request.getHeader("Authorization")
-        if (authorization != null && authorization.startsWith("Bearer ")) {
-            val auth = getAuthorization(authorization.split(" ")[1])
+        if(authorization != null && authorization.startsWith("Bearer ")) {
+            val auth = getAuthentication(authorization.split(" ")[1])
             SecurityContextHolder.getContext().authentication = auth
         }
         chain.doFilter(request, response)
     }
 
-    private fun getAuthorization(token: String): UsernamePasswordAuthenticationToken {
-        if (!jwtUtil.isValidToken(token)) {
-            throw AuthenticationException("Invalid token", "9999")
+    private fun getAuthentication(token: String): UsernamePasswordAuthenticationToken {
+        if(!jwtUtil.isValidToken(token)) {
+            throw AuthenticationException("Token inválido", "999")
         }
         val subject = jwtUtil.getSubject(token)
-        val customer = userDetailCustomService.loadUserByUsername(subject)
+        val customer = userDetails.loadUserByUsername(subject)
         return UsernamePasswordAuthenticationToken(customer, null, customer.authorities)
     }
-
 
 }
